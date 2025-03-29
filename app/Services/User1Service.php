@@ -1,32 +1,41 @@
 <?php
-
 namespace App\Services;
 
 use App\Traits\ConsumesExternalService;
 
-class User1Service{
-
+class User1Service
+{
     use ConsumesExternalService;
-    
-    /**
-     * The base uri to consume the User1 Service
-     * @var string
-     */
+
     public $baseUri;
 
     public function __construct()
     {
         $this->baseUri = config('services.users1.base_uri');
     }
-    
-    /**
-     * Obtain the full list of Users from User1 Site
-     * @return string
-     */
 
-     public function obtainUsers1()
-     {
-         // This code will call the GET localhost:8000/users (our site1)
-         return $this->performRequest('GET', '/users');
-     }
-}     
+    public function obtainUsers1()
+    {
+        return $this->performRequest('GET', '/api/users');
+    }
+
+    public function createUser1($data)
+    {
+        return $this->performRequest('POST', '/api/users', $data);
+    }
+
+    public function getUser1($userId)
+    {
+        return $this->performRequest('GET', "/api/users/{$userId}");
+    }
+
+    public function updateUser1($userId, $data)
+    {
+        return $this->performRequest('PUT', "/api/users/{$userId}", $data);
+    }
+
+    public function deleteUser1($userId)
+    {
+        return $this->performRequest('DELETE', "/api/users/{$userId}");
+    }
+}
